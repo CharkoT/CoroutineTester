@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="mainItem"
+            type="kr.co.coroutinetester.api.model.MainModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/profile_iv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#cccccc"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            imageUrl="@{mainItem.avatar_url}" />
+
+        <TextView
+            android:id="@+id/username_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@{mainItem.login}"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@+id/profile_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/url_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@{mainItem.url}"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@+id/profile_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username_tv" />
+
+        <TextView
+            android:id="@+id/score_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@{kr.co.coroutinetester.util.BindingManagers.double2String(mainItem.score)}"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@+id/profile_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/url_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,6 +1,8 @@
 # CoroutineTester by Kotlin
 
 깃헙 아이디 검색, 검색 리스트 가져오기
+프로젝트 제목을 코루틴이라고 하고 정작 알맹이는 mvvm이 핵심인... 프로젝트..
+코루틴에 대해 알아보자!!
 
 MVVM + databinding + livedata + coroutine
 retrofit2, glide 

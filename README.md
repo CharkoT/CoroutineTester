@@ -6,8 +6,10 @@
 추후 코루틴에 대해 알아보자!!
 
 MVVM + databinding + livedata + coroutine
-retrofit2, glide 
-사용
+
+Data Binding : EditText(양방향), Button(버튼액션), TextView(단방향), RecyclerView(단방향)
+
+retrofit2, glide 사용
 
 Screenshot
 --------------------------------

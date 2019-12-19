@@ -15,4 +15,11 @@ open class BaseViewModel : ViewModel(), Observable {
         callbacks.add(callback)
     }
 
+    fun notifyChange() {
+        callbacks.notifyCallbacks(this, 0, null)
+    }
+
+    fun notifyPropertyChanged(fieldId: Int) {
+        callbacks.notifyCallbacks(this, fieldId, null)
+    }
 }

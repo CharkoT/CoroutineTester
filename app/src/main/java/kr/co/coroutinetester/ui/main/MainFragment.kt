@@ -43,8 +43,10 @@ class MainFragment : Fragment() {
 
         val binding: MainFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
+
         viewModel = ViewModelProviders.of(this@MainFragment).get(MainViewModel::class.java)
         binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
 
         return binding.root
     }

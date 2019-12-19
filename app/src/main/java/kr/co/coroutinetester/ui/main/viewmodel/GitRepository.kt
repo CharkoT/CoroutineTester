@@ -1,7 +1,8 @@
 package kr.co.coroutinetester.ui.main.viewmodel
 
 import android.util.Log
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.MutableLiveData
 import kr.co.coroutinetester.api.model.MainApiModel
 import kr.co.coroutinetester.api.model.MainModel
 import kr.co.coroutinetester.retrofit.RetrofitService
@@ -16,7 +17,7 @@ interface ItfGitRepository {
 
 class GitRepository {
 
-    var userList = ObservableField<ArrayList<MainModel>>()
+    var userList = MutableLiveData<ArrayList<MainModel>>()
     var itfGitRepository: ItfGitRepository? = null
 
     companion object {
@@ -43,12 +44,12 @@ class GitRepository {
             override fun onResponse(call: Call<MainApiModel>, response: Response<MainApiModel>) {
                 val model = response.body()?.items
                 if (model != null) {
-                    userList.set(model as ArrayList<MainModel>?)
+                    userList.value = (model as ArrayList<MainModel>?)
                 }
 
                 Log.d(
                     this.javaClass.name,
-                    "GitRepository get NickName success size ${userList?.get()?.size}"
+                    "GitRepository get NickName success size ${userList?.value?.size}"
                 )
                 itfGitRepository?.onGetItems()
             }

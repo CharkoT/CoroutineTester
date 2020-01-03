@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenStarted
+import androidx.lifecycle.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.coroutines.launch
 import kr.co.coroutinetester.R
@@ -22,9 +20,11 @@ class MainFragment : Fragment() {
     init {
         lifecycleScope.launch {
             whenStarted {
-                Log.d(this.javaClass.name, "MainFragment init setp~~~~")
+                Log.d(this.javaClass.name, "MainFragment init setp~~~~(started)")
+            }
 
-                rvItems.adapter = MainAdapter()
+            whenResumed {
+                Log.d(this.javaClass.name, "MainFragment init setp~~~~(resumed)")
             }
         }
     }
@@ -45,6 +45,7 @@ class MainFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
 
         viewModel = ViewModelProviders.of(this@MainFragment).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
@@ -55,6 +56,7 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             Log.d(this.javaClass.name, "MainFragment onActivityCreated setp~~~~")
+            rvItems.adapter = MainAdapter()
         }
     }
 }

@@ -7,7 +7,7 @@
 
 MVVM + databinding + livedata + coroutine
 
-Data Binding : EditText(양방향), Button(버튼액션), TextView(단방향), RecyclerView(단방향)
+Data Binding : EditText(양방향), Button(버튼액션, 단방향), TextView(단방향), RecyclerView(단방향)
 
 retrofit2, glide 사용
 
@@ -15,11 +15,11 @@ Screenshot
 --------------------------------
 ![](https://user-images.githubusercontent.com/8044971/70489708-d8a80100-1b3f-11ea-9a1a-bd05b70adaf4.png)
 위 내용의 구조를 띈다.
-1. (Fragment)View(이하 V)와 ViewModel(이하 VM)간의 의존성을 제거하기 위해 livdata, databinding을 사용한다.
-2. VM내부 Repository를 이용하여 데이터를 가져오고, 관련된 부분을 인터페이스를 사용하여 델리게이트 패턴을 만들고, 활용한다.
+1. (Fragment)View(이하 V)와 ViewModel(이하 VM)간의 의존성을 제거하기 위해 livedata, databinding을 사용한다.
+2. LiveData를 사용하여 화면전환에도 최신데이터를 유지할 수 있게 변경
 3. 레트로핏을 사용하여 해당 데이터를 받아온다.
 4. Corutine을 활용하여 lifecycle에 안전성을 더해준다(?) - 아직 부족한게 많음.
-5. LiveData가 적절하게 작성이 되었는지...??
+
 
 우리는 왜 이렇게 코드를 짜야 하냐?
 1. 테스트 가능한 코드를 만들기 용이하다.

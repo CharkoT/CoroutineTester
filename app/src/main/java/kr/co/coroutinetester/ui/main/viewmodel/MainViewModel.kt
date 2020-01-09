@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kr.co.coroutinetester.api.model.MainModel
 import kr.co.coroutinetester.util.BaseViewModel
@@ -13,53 +12,41 @@ class MainViewModel : BaseViewModel() {
 
 	private var _title = MutableLiveData<String>("Github search ID")
 	private var _show = MutableLiveData<Boolean>(false)
-	private var _userList = MutableLiveData<ArrayList<MainModel>>()
+	private var _userList = SearchNickLiveData<ArrayList<MainModel>>()
+
+	val repo = GitRepository.newInstance(_userList, _title, _show)
 
 	var etTextSearch = MutableLiveData<String>("CharkoT")
 	var title: LiveData<String> = _title
 	var show: LiveData<Boolean> = _show
-	var userList: LiveData<ArrayList<MainModel>> = _userList
 
-	val repo = GitRepository.newInstance()
+	var userList: LiveData<ArrayList<MainModel>> = _userList
 
 	init {
 		viewModelScope.launch {
 			Log.d(this.javaClass.name, "MainViewModel >> init setp~~~~")
-//			repo.itfGitRepository = this@MainViewModel
-			val getNick = repo.retrofit.getNickName(etTextSearch.value.let { it.toString() }).await()
-			_userList.postValue(getNick.items)
 		}
 	}
 
 	fun onSearchClick() {
 		Log.d(this.javaClass.name, "MainViewModel >> onSearchClick setp~~~~")
-		val txt = etTextSearch.value
-		if (txt != null) {
-			getName(txt)
+
+		getQuery()
+	}
+
+	fun getQuery() {
+
+		val query = etTextSearch.value.let { it.toString() }
+		if (query.length > 0) {
+			repo.getNickName(query)
 		}
 	}
 
-	fun getName(q: String) {
-		viewModelScope.launch {
-			_title.value = "Searching....."
-			_show.value = true
+	inner class SearchNickLiveData<T>() : MutableLiveData<T>() {
+		override fun onActive() {
+			super.onActive()
 
-			val getNick = repo.retrofit.getNickName(q).await()
-			_userList.postValue(getNick.items)
-
-			_show.value = false
-			_title.value = "Search success!!"
-
+			getQuery()
 		}
 	}
-
-//	override fun onGetItems() {
-//		_show.value = false
-//		_title.value = "Search success!!"
-//	}
-//
-//	override fun onFailItems() {
-//		_show.value = false
-//		_title.value = "Search fail - Unknown "
-//	}
 }
